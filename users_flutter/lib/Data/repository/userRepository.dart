@@ -16,7 +16,7 @@ class UserRepositoryImp implements Repository {
       final deserializedResponse = json.decode(response.body);
       final List<User> users = List<User>.from(
           deserializedResponse.map((user) => User.fromJson(user)));
-
+      print(users);
       return users;
     } else {
       return throw Exception('Something Went wrong');

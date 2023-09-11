@@ -4,7 +4,11 @@ import 'package:users_flutter/Data/repository/userRepository.dart';
 import 'package:users_flutter/domain/repository/repository.dart';
 import 'package:users_flutter/domain/useCase/fetchDataUseCase.dart';
 
-void main() {
+void main() async {
+  UserApiCall _userApiCall = UserApiCall();
+  Repository _repo = UserRepositoryImp(_userApiCall);
+  var s = FetchDataUseCase(_repo);
+  await s.call(0);
   runApp(const MyApp());
 }
 
@@ -15,11 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('hi');
-    UserApiCall _userApiCall = UserApiCall();
-    _userApiCall.fetchAllUsers(0).then((res) => print(res.body));
-    Repository _repo = UserRepositoryImp(_userApiCall);
-    // _repo.fetchAllUsers(0).then((s) => print('yse'));
-    //FetchDataUseCase(repo: _repo);
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

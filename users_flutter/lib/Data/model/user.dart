@@ -1,5 +1,6 @@
 import 'package:users_flutter/domain/entity/user_entity.dart';
 
+// ignore: must_be_immutable
 class User extends UserEntity {
   User(
       {int? userId,
