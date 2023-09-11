@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
 import 'package:users_flutter/core/useCase.dart';
 import 'package:users_flutter/domain/entity/user_entity.dart';
@@ -12,6 +15,8 @@ part 'users_event.dart';
 part 'users_state.dart';
 
 class UsersBloc extends Bloc<UsersEvent, UsersState> {
+  final UseCase _fetchDataUseCase;
+  int _pageNr = 0;
   /*UserApiCall _userApiCall = UserApiCall();
   Repository _repo = UserRepositoryImp(_userApiCall);
   var s = FetchDataUseCase(_repo);
@@ -21,14 +26,17 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
       if (state.hasReachedMax) return;
       try {
         if (state.status == UsersStatus.initial) {
-          final users = await _fetchDataUseCase();
+          final useCase = await _fetchDataUseCase(GetIt.I.get<UserRepository>);
+          final users = await useCase.call(_pageNr);
           return emit(state.copyWith(
             status: UsersStatus.success,
             users: users,
             hasReachedMax: false,
           ));
         }
-        final users = await _fetchDataUseCase(state.users.length);
+        _pageNr++;
+        final useCase = await _fetchDataUseCase(GetIt.I.get<UserRepository>);
+        final users = await useCase.call(_pageNr);
         emit(users.isEmpty
             ? state.copyWith(hasReachedMax: true)
             : state.copyWith(
@@ -41,5 +49,4 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
       }
     });
   }
-  final UseCase _fetchDataUseCase;
 }

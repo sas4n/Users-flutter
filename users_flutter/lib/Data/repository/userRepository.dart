@@ -5,7 +5,7 @@ import 'package:users_flutter/Data/model/user.dart';
 import 'package:http/http.dart' as http;
 import '../../domain/repository/repository.dart';
 
-class UserRepositoryImp implements Repository {
+class UserRepositoryImp implements UserRepository {
   final UserApiCall _userApiCall;
 
   UserRepositoryImp(this._userApiCall);
