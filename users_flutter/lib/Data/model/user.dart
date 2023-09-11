@@ -1,24 +1,22 @@
 import 'package:users_flutter/domain/entity/user_entity.dart';
 
 class User extends UserEntity {
-  const User(
-      {String? userId,
-      String? userName,
+  User(
+      {int? userId,
+      String? username,
       int? gender,
       String? dateOfBirth,
       String? municipality,
       String? province,
-      String? pictureUrl})
-      : super('', '', 0, '', '', '', '');
+      String? pictureUrl});
 
-  factory User.fromJson(Map<String, dynamic> map) {
-    return User(
-        userId: map["userId"] ?? '',
-        userName: map["userName"] ?? '',
-        gender: map["gender"] ?? 0,
-        dateOfBirth: map["dateOfBirth"] ?? '',
-        municipality: map["municipality"] ?? '',
-        province: map["province"] ?? '',
-        pictureUrl: map["pictureUrl"] ?? '');
+  User.fromJson(Map<String, dynamic> obj) {
+    userId = obj['userId'] ?? 1;
+    username = obj['username'] ?? '';
+    gender = obj['gender'] ?? 1;
+    dateOfBirth = obj['dateOfBirth'] ?? '';
+    municipality = obj['municipality'] ?? '';
+    province = obj['province'] ?? '';
+    pictureUrl = obj['pictureUrl'] ?? '';
   }
 }

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:users_flutter/Data/dataResourse/users_Api_Call.dart';
+import 'package:users_flutter/Data/repository/userRepository.dart';
+import 'package:users_flutter/domain/repository/repository.dart';
+import 'package:users_flutter/domain/useCase/fetchDataUseCase.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,6 +14,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    print('hi');
+    UserApiCall _userApiCall = UserApiCall();
+    _userApiCall.fetchAllUsers(0).then((res) => print(res.body));
+    Repository _repo = UserRepositoryImp(_userApiCall);
+    // _repo.fetchAllUsers(0).then((s) => print('yse'));
+    //FetchDataUseCase(repo: _repo);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
