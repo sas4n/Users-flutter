@@ -24,10 +24,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
       try {
         if (state.status == UsersStatus.initial) {
           final useCase = getIt<UseCase>();
-          print('called');
           final users = await useCase.call(_pageNr);
-
-          print(users);
           return emit(state.copyWith(
             status: UsersStatus.success,
             users: users,
@@ -35,7 +32,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
           ));
         }
         _pageNr++;
-        final useCase = await _fetchDataUseCase(GetIt.I.get<UserRepository>);
+        final useCase = getIt<UseCase>();
         final users = await useCase.call(_pageNr);
         emit(users.isEmpty
             ? state.copyWith(hasReachedMax: true)
