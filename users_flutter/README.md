@@ -1,16 +1,9 @@
 # users_flutter
 
-A new Flutter project.
+A Flutter project used clean code architecture for getting users' data from a REST api and showing them in a infinite scrollable page .
 
-## Getting Started
+## Run the project
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+cd users_flutter
+To avoid getting CORS error and since this app will only be running on dev environment, we can disable web security flag.
+flutter run -d chrome --web-browser-flag "--disable-web-security"

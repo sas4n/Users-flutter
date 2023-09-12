@@ -15,7 +15,6 @@ class UserListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final date = DateTime.parse(user.dateOfBirth ?? '');
     final dt = DateFormat.yMMMMd().format(date);
-    final textTheme = Theme.of(context).textTheme;
     return Material(
         child: Container(
       margin: EdgeInsets.all(5),
