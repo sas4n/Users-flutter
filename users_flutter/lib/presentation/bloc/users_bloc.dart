@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
 import 'package:users_flutter/core/useCase.dart';
 import 'package:users_flutter/domain/entity/user_entity.dart';
+import 'package:users_flutter/injection.dart';
 
 import '../../domain/repository/repository.dart';
 
@@ -18,12 +19,15 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
   var s = FetchDataUseCase(_repo);
   await s.call(0);*/
   UsersBloc(this._fetchDataUseCase) : super(const UsersState()) {
-    on<UsersEvent>((event, emit) async {
+    on<FetchUsersEvent>((event, emit) async {
       if (state.hasReachedMax) return;
       try {
         if (state.status == UsersStatus.initial) {
-          final useCase = await _fetchDataUseCase(GetIt.I.get<UserRepository>);
+          final useCase = getIt<UseCase>();
+          print('called');
           final users = await useCase.call(_pageNr);
+
+          print(users);
           return emit(state.copyWith(
             status: UsersStatus.success,
             users: users,
