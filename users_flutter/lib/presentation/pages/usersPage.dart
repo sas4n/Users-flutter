@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:users_flutter/core/useCase.dart';
-import 'package:users_flutter/domain/useCase/fetchDataUseCase.dart';
-
 import '../../injection.dart';
 import '../bloc/users_bloc.dart';
 import '../widgets/userList.dart';

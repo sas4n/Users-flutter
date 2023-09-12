@@ -16,5 +16,5 @@ void setUp() {
 
   getIt.registerSingleton<UseCase>(FetchDataUseCase(getIt()));
 
-  getIt.registerSingleton<UsersBloc>(UsersBloc(getIt()));
+  getIt.registerFactory<UsersBloc>(() => UsersBloc(getIt()));
 }

@@ -16,10 +16,11 @@ class UserRepositoryImp implements UserRepository {
       final deserializedResponse = json.decode(response.body);
       final List<User> users = List<User>.from(
           deserializedResponse.map((user) => User.fromJson(user)));
-      print(users);
+      // print(users);
       return users;
     } else {
-      return throw Exception('Something Went wrong');
+      print(response.body);
+      return throw Exception('Something Went wrong, please refresh.');
     }
   }
 }

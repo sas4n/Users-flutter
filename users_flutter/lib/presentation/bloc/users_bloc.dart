@@ -20,7 +20,10 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
   await s.call(0);*/
   UsersBloc(this._fetchDataUseCase) : super(const UsersState()) {
     on<FetchUsersEvent>((event, emit) async {
-      if (state.hasReachedMax) return;
+      if (state.hasReachedMax) {
+        print(state.hasReachedMax);
+        return;
+      }
       try {
         if (state.status == UsersStatus.initial) {
           final useCase = getIt<UseCase>();
@@ -33,6 +36,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
         }
         _pageNr++;
         final useCase = getIt<UseCase>();
+
         final users = await useCase.call(_pageNr);
         emit(users.isEmpty
             ? state.copyWith(hasReachedMax: true)
@@ -41,7 +45,8 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
                 users: List.of(state.users)..addAll(users),
                 hasReachedMax: false,
               ));
-      } catch (_) {
+      } catch (e) {
+        print(e);
         emit(state.copyWith(status: UsersStatus.failure));
       }
     });

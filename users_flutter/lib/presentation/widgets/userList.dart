@@ -26,8 +26,6 @@ class _UserListState extends State<UserList> {
     return BlocBuilder<UsersBloc, UsersState>(
       builder: (context, state) {
         switch (state.status) {
-          case UsersStatus.failure:
-            return const Center(child: Text('failed to fetch posts'));
           case UsersStatus.success:
             if (state.users.isEmpty) {
               return const Center(child: Text('no posts'));
@@ -36,13 +34,18 @@ class _UserListState extends State<UserList> {
               itemBuilder: (BuildContext context, int index) {
                 return index >= state.users.length
                     ? const BottomLoader()
-                    : UserListItem(user: state.users[index]);
+                    : UserListItem(
+                        user: state.users[index],
+                        index: index + 1,
+                      );
               },
               itemCount: state.hasReachedMax
                   ? state.users.length
                   : state.users.length + 1,
               controller: _scrollController,
             );
+          case UsersStatus.failure:
+            return const Center(child: Text('Failed to fetch posts'));
           case UsersStatus.initial:
             return const Center(child: CircularProgressIndicator());
         }
@@ -59,13 +62,15 @@ class _UserListState extends State<UserList> {
   }
 
   void _onScroll() {
-    if (_isBottom) context.read<UsersBloc>().add(FetchUsersEvent());
+    if (_isBottom) {
+      context.read<UsersBloc>().add(FetchUsersEvent());
+    }
   }
 
   bool get _isBottom {
     if (!_scrollController.hasClients) return false;
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
-    return currentScroll >= (maxScroll * 0.9);
+    return currentScroll >= (maxScroll);
   }
 }
