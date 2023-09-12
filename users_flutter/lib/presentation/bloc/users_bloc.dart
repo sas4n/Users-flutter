@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
@@ -7,8 +5,6 @@ import 'package:meta/meta.dart';
 import 'package:users_flutter/core/useCase.dart';
 import 'package:users_flutter/domain/entity/user_entity.dart';
 
-import '../../Data/dataResourse/users_Api_Call.dart';
-import '../../Data/repository/userRepository.dart';
 import '../../domain/repository/repository.dart';
 
 part 'users_event.dart';
